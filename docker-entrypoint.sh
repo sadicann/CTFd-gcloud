@@ -25,7 +25,7 @@ python ping.py
 python manage.py db upgrade
 
 echo "Mounting GCS Fuse."
-gcsfuse --debug_gcs --debug_fuse $BUCKET $MNT_DIR 
+gcsfuse --debug_gcs --debug_fuse $BUCKET /mnt/gcs 
 echo "Mounting completed."
 
 
