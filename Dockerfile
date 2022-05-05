@@ -1,6 +1,6 @@
 FROM python:3.9-slim-buster
 WORKDIR /opt/CTFd
-RUN mkdir -p /opt/CTFd /var/log/CTFd /var/uploads
+RUN mkdir -p /opt/CTFd /var/log/CTFd /var/uploads /mnt/gcs
 
 # hadolint ignore=DL3008
 RUN apt-get update \
@@ -28,8 +28,6 @@ RUN pip install -r requirements.txt --no-cache-dir
 
 COPY . /opt/CTFd
 
-RUN mkdir -p /mnt/gcs
-
 # hadolint ignore=SC2086
 RUN for d in CTFd/plugins/*; do \
         if [ -f "$d/requirements.txt" ]; then \
@@ -45,7 +43,7 @@ RUN adduser \
     --shell /bin/bash \
     ctfd \
     && chmod +x /opt/CTFd/docker-entrypoint.sh \
-    && chown -R 1001:1001 /opt/CTFd /var/log/CTFd /var/uploads
+    && chown -R 1001:1001 /opt/CTFd /var/log/CTFd /var/uploads /mnt/gcs
 
 USER 1001
 EXPOSE 8000
