@@ -36,16 +36,19 @@ RUN for d in CTFd/plugins/*; do \
     done;
 
 # hadolint ignore=DL3059
-RUN adduser \
-    --disabled-login \
-    -u 1001 \
-    --gecos "" \
-    --shell /bin/bash \
-    ctfd \
-    && chmod +x /opt/CTFd/docker-entrypoint.sh \
-    && chmod 777 /dev/fuse \
-    && chown -R 1001:1001 /opt/CTFd /var/log/CTFd /var/uploads /mnt/gcs
+# RUN adduser \
+#     --disabled-login \
+#     -u 1001 \
+#     --gecos "" \
+#     --shell /bin/bash \
+#     ctfd \
+#     && chmod +x /opt/CTFd/docker-entrypoint.sh \
+#     && chmod 777 /dev/fuse \
+#     && chown -R 1001:1001 /opt/CTFd /var/log/CTFd /var/uploads 
 
-USER 1001
+# USER 1001
+
+chmod +x /opt/CTFd/docker-entrypoint.sh
+
 EXPOSE 8000
 ENTRYPOINT ["/opt/CTFd/docker-entrypoint.sh"]
