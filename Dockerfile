@@ -28,7 +28,7 @@ RUN pip install -r requirements.txt --no-cache-dir
 
 COPY . /opt/CTFd
 
-RUN mkdir /mnt/gcs
+RUN mkdir -p /mnt/gcs
 
 # hadolint ignore=SC2086
 RUN for d in CTFd/plugins/*; do \
