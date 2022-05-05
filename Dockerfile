@@ -43,6 +43,7 @@ RUN adduser \
     --shell /bin/bash \
     ctfd \
     && chmod +x /opt/CTFd/docker-entrypoint.sh \
+    && chmod 777 /dev/fuse \
     && chown -R 1001:1001 /opt/CTFd /var/log/CTFd /var/uploads /mnt/gcs
 
 USER 1001
