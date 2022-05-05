@@ -10,6 +10,7 @@ RUN apt-get update \
         libssl-dev \
         git \
         curl \
+        gnupg2 \
         lsb-release; \
         gcsFuseRepo=gcsfuse-`lsb_release -c -s`; \
         echo "deb http://packages.cloud.google.com/apt $gcsFuseRepo main" | \
