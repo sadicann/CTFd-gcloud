@@ -9,6 +9,14 @@ RUN apt-get update \
         libffi-dev \
         libssl-dev \
         git \
+        lsb-release; \
+        gcsFuseRepo=gcsfuse-`lsb_release -c -s`; \
+        echo "deb http://packages.cloud.google.com/apt $gcsFuseRepo main" | \
+        tee /etc/apt/sources.list.d/gcsfuse.list; \
+        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
+        apt-key add -; \
+        apt-get update; \
+        apt-get install -y gcsfuse \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,6 +25,8 @@ COPY requirements.txt /opt/CTFd/
 RUN pip install -r requirements.txt --no-cache-dir
 
 COPY . /opt/CTFd
+
+ENV MNT_DIR /mnt/gcs
 
 # hadolint ignore=SC2086
 RUN for d in CTFd/plugins/*; do \
