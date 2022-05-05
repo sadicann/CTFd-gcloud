@@ -8,6 +8,12 @@ ERROR_LOG=${ERROR_LOG:--}
 WORKER_TEMP_DIR=${WORKER_TEMP_DIR:-/dev/shm}
 SECRET_KEY=${SECRET_KEY:-}
 
+
+echo "Mounting GCS Fuse."
+gcsfuse --debug_gcs --debug_fuse $BUCKET /mnt/gcs 
+echo "Mounting completed."
+
+
 # Check that a .ctfd_secret_key file or SECRET_KEY envvar is set
 if [ ! -f .ctfd_secret_key ] && [ -z "$SECRET_KEY" ]; then
     if [ $WORKERS -gt 1 ]; then
@@ -23,10 +29,6 @@ python ping.py
 
 # Initialize database
 python manage.py db upgrade
-
-echo "Mounting GCS Fuse."
-gcsfuse --debug_gcs --debug_fuse $BUCKET /mnt/gcs 
-echo "Mounting completed."
 
 
 # Start CTFd
