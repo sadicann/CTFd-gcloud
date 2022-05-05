@@ -24,9 +24,6 @@ python ping.py
 # Initialize database
 python manage.py db upgrade
 
-# Create mount directory for service
-mkdir -p $MNT_DIR
-
 echo "Mounting GCS Fuse."
 gcsfuse --debug_gcs --debug_fuse $BUCKET $MNT_DIR 
 echo "Mounting completed."
